@@ -1,0 +1,80 @@
+#i
+
+import math
+
+r_1 = (8,1,2)
+r_2 = (3,4,5)
+
+energy=2.3
+
+def dist(r_1, r_2):
+        dista = []
+        for x in range(len(r_1)):
+                dista+=[(r_1[x]-r_2[x])**2]
+        return math.sqrt(sum(dista))
+
+print(dist(r_1,r_2))
+
+def unit_vector(r_1,r_2):
+        d = []
+        e = []
+        for x in range(len(r_1)):
+                d += [r_1[x] - r_2[x]]
+        
+        for x in range(len(r_1)):
+                e += [d[x]/dist(r_1,r_2)]
+        return e
+
+print(unit_vector(r_1,r_2))
+
+def mev_to_ev(energy):
+        return energy*1e6
+
+print(mev_to_ev(energy))
+
+#ii
+# The most appropriate container type for storing event information is one
+# in which information has some sort of lexical, logical context. The order of
+# these data does not matter. The container that aligns with these qualities
+# is the dictionary. Sets are not useful given that their properties under
+# set algebra have no usage here. Lists provide order but no context for the
+# information, and therefore are not useful. And tuples do not provide order
+# and also are not mutable, and therefore inflexible in the case of new data
+# being added to the container (e.g. new points of measure).
+
+event={}
+event['particleID'] = 43
+event['r'] = r_2
+event['d_r'] = unit_vec(r_1,r_2)
+event['E'] = mev_to_ev(energy)
+event['element'] = (1,2)
+event['rxn_type'] = 102
+
+#iii
+# The most appropriate container type for a log of events would be one in
+# which the order of the events is preserved, and that can be appended to
+# include more events. This container is a list, specifically a list of
+# dictionaries. Dictionaries of lists are hard to append new data to. 
+# Tuples cannot easily append additional events, and so is not useful. 
+# A dictionary does not preserve a useful order, and so is not useful. 
+# And the qualities that define sets give us no benefit in this context, and 
+# so sets are not useful.
+
+event_log = []
+for x in range(3):
+        event_log += [event]
+
+
+#iv
+
+#a
+
+energy_change = event_log[5,'E'] - event_log[4,'E']
+
+#b
+
+distance = dist(event_log[6,'r'],event_log[7,'r'])
+
+#c
+
+aligned_w_z = event_log[3,'r',2] > event_log[8,'r',2]
